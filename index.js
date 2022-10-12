@@ -48,8 +48,11 @@ var getTimetable = (year, batch)=>{
         //import json file
         try{
             var fs = require('fs');
-            var data = fs.readFileSync(`timetable_${year}.json`);
-            var timetable = JSON.parse(data);
+            var pathmodule = require('path');
+            var baseDir = __dirname + "/";
+            //search file using path
+            var path = pathmodule.join(baseDir, `timetable_${year}.json`);
+            var timetable = JSON.parse(fs.readFileSync(path, 'utf8'));
             //check if batch is exists
             if(timetable[batch]){
                 return timetable[batch];
