@@ -88,7 +88,7 @@ app.post('/timetable', (req, res) => {
         }
         catch(err){
             //response 500
-            res.status(500).send("Internal Server Error");
+            res.status(500).send(`Internal Server Error\n${err}`);
         }
     }
     else{
