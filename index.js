@@ -1,6 +1,7 @@
 //express server
 const express = require('express');
 const app = express();
+require('dotenv').config();
 const port = process.env.PORT || 3000;
 
 //body parser
@@ -13,7 +14,23 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => 
 {
     //response 200
-    res.status(200).send('Hello World!');
+    //res.status(200).send(`HELLO: ${process.env.AUTH_KEY}`);
+    //check headers for Authorization
+    
+    if(req.headers.authorization){
+        //check if authorization key matches
+        if(req.headers.authorization == "Bearer " +  process.env.AUTH_KEY){
+            //response 200
+            res.status(200).send(`HELLO WORLD`);
+        }else{
+            //response 401
+            res.status(401).send(`Unauthorized`);
+        }
+    }
+    else{
+        //response 401
+        res.status(401).send(`Very Unauthorized`);
+    }
 });
 
 //getTimetable
@@ -38,6 +55,7 @@ app.get('/timetable', (req, res) =>
         res.status(404).send("Timetable not found");
     }
 });
+
 
 //start server
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
