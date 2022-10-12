@@ -55,6 +55,47 @@ app.get('/timetable', (req, res) =>
         res.status(404).send("Timetable not found");
     }
 });
+//fetch timetable
+app.post('/timetable', (req, res) => {
+    //get params
+    var params = req.query;
+    //get year and batch
+    var year = params.year;
+    //get body
+    var body = req.body;
+    if(year>=1 && year<=4){
+        //import json file
+        try{
+            var fs = require('fs');
+            var pathmodule = require('path');
+            var baseDir = __dirname + "/";
+            //search file using path
+            var path = pathmodule.join(baseDir, `timetable_${year}.json`);
+            //check if file exists
+            if(fs.existsSync(path)){
+                //write to file
+                fs.writeFileSync(path, JSON.stringify(body));
+                //response 200
+                res.status(200).send("Timetable updated");
+            }
+            else{
+                //create file
+                fs.writeFileSync(path, JSON.stringify(body));
+                //response 200
+                res.status(200).send("Timetable created");
+            }
+
+        }
+        catch(err){
+            //response 500
+            res.status(500).send("Internal Server Error");
+        }
+    }
+    else{
+        //response 400
+        res.status(400).send("Invalid year");
+    }
+});
 
 
 //start server
