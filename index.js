@@ -17,9 +17,9 @@ app.get('/', (req, res) =>
     //res.status(200).send(`HELLO: ${process.env.AUTH_KEY}`);
     //check headers for Authorization
     //res.status(200).send(`HELLO: ${process.env.AUTH_KEY}`);
-    if(req.headers.authorization){
+    if(req.headers.token){
         //check if authorization key matches
-        if(req.headers.authorization == "Bearer " +  process.env.AUTH_KEY){
+        if(req.headers.token == `${process.env.AUTH_KEY}`){
             //response 200
             res.status(200).send(`HELLO WORLD`);
         }else{
