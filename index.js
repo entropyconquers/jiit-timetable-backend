@@ -26,7 +26,7 @@ app.get('/', (req, res) =>
             //response 401
             res.status(401).send(`Unauthorized YOUR KEY: ${req.headers.token} AUTH KEY: ${process.env.AUTH_KEY}`);
         }
-    }
+    } 
     else{
         //response 401
         res.status(401).send(`Very Unauthorized`);
