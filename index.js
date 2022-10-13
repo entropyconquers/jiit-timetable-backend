@@ -164,6 +164,8 @@ app.get('/timetable', (req, res) =>
     //get year and batch
     var year = params.year;
     var batch = params.batch;
+    var serialize = params.serialize || "0";
+    
     //get timetable
     //connect to mongodb
     try{
@@ -209,12 +211,25 @@ app.get('/timetable', (req, res) =>
                                             timetable[key] = timetable2[key];
                                         }
                                     }
-                                    res.status(200).send(timetable);
+                                    
+                                    if(serialize == "1"){
+                                        console.log("Serializing");
+                                        res.status(200).send(serializeData(timetable));
+                                    }
+                                    else{
+                                        res.status(200).send(timetable);
+                                    }
                                     return;
                                 }
                                 else{
                                     //response 200
-                                    res.status(200).send(result.timetable);
+                                    if(serialize == "1"){
+                                        console.log("Serializing");
+                                        res.status(200).send(serializeData(result.timetable));
+                                    }
+                                    else{
+                                        res.status(200).send(result.timetable);
+                                    }
                                     return;
                                 }
                             })
@@ -247,6 +262,27 @@ app.get('/timetable', (req, res) =>
         return;
     }
 });
+const serializeData = (timetable) => {
+    //serialize timetable data
+    var days = [];
+    for(var day in timetable){
+        var timeslots = [];
+        for(var timeslot in timetable[day]){
+            var slot = {
+                timeslot: timeslot,
+                subject: timetable[day][timeslot]
+            }
+            timeslots.push(slot);
+        }
+        var dayData = {
+            day: day,
+            timeslots: timeslots
+        }
+        days.push(dayData);
+    }
+    return days;
+}
+
    
 
 
