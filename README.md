@@ -5,8 +5,7 @@ This is the backend for the [jiit-timetable](
     https://github.com/entropyconquers/jiit-timetable-frontend.git
 ) app.
 
-
-## Available methods
+The backend is written in Node.js and MongoDB Atlas is used as the database.
 
 ```javascript
 "Available Routes": [
