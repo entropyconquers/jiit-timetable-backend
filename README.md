@@ -1,9 +1,8 @@
 # jiit-timetable-backend
 
-This is the backend for the [jiit-timetable](
-    <!-- Link to the frontend repo -->
-    https://github.com/entropyconquers/jiit-timetable-frontend.git
-) app.
+This is the backend for the [jiit-timetable-frontend](https://github.com/entropyconquers/jiit-timetable-frontend) project.
+
+The timetable data parser is written in Python [here](https://github.com/entropyconquers/jiit-timetable-parser).
 
 The backend is written in Node.js and MongoDB Atlas is used as the database.
 
